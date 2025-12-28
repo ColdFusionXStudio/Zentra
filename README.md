@@ -1,2 +1,2 @@
 # Zentra
-A music app
+A music app. simple
