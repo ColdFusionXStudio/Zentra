@@ -1,5 +1,3 @@
-# Firebase Studio
+# The Zentra (ZENTRA) muisc app
 
-This is a NextJS starter in Firebase Studio.
-
-To get started, take a look at src/app/page.tsx.
+apple muisc and spotify combined totgeter
