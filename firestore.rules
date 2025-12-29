@@ -1,0 +1,64 @@
+
+/**
+ * Core Philosophy: This ruleset treats all application data (songs, artists, albums)
+ * as public, read-only content curated by a backend process, preventing any client-side modifications.
+ *
+ * Data Structure: Publicly accessible music metadata is stored in top-level
+ * collections like /songs, /artists, and /albums.
+ *
+ * Key Security Decisions:
+ * - Client Write Prevention: All top-level collections containing core music data
+ *   (songs, artists, albums) are read-only for clients. This assumes that this data
+ *   is populated and managed by a trusted server environment using the Admin SDK.
+ * - Default Secure: Access is denied by default. Rules explicitly grant permissions.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Stores global artist information, readable by all.
+     * @path /artists/{artistId}
+     * @allow Any user, authenticated or not, can (get) or (list) artists.
+     * @deny No client, authenticated or not, can (create), (update), or (delete) an artist.
+     * @principle Secures a public, read-only collection. Data is managed by a trusted backend.
+     */
+    match /artists/{artistId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Stores global album information, readable by all.
+     * @path /albums/{albumId}
+     * @allow Any user, authenticated or not, can (get) or (list) albums.
+     * @deny No client, authenticated or not, can (create), (update), or (delete) an album.
+     * @principle Secures a public, read-only collection. Data is managed by a trusted backend.
+     */
+    match /albums/{albumId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Stores global song information, readable by all.
+     * @path /songs/{songId}
+     * @allow Any user, authenticated or not, can (get) or (list) songs.
+     * @deny No client, authenticated or not, can (create), (update), or (delete) a song.
+     * @principle Secures a public, read-only collection. Data is managed by a trusted backend.
+     */
+    match /songs/{songId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
